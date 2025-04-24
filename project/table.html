@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2DU - View your task statistics and analytics">
+    <title>2DU - Statistics</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/images.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <a href="project.html" class="logo-link">
+                <i class="fa-solid fa-list-check logo-img"></i>
+                <h1>2DU</h1>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li>
+                    <a href="project.html" class="nav-link">
+                        <i class="fa-solid fa-house nav-icon"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="tasks.html" class="nav-link">
+                        <i class="fa-solid fa-tasks nav-icon"></i>
+                        Tasks
+                    </a>
+                </li>
+                <li>
+                    <a href="calendar.html" class="nav-link">
+                        <i class="fa-solid fa-calendar nav-icon"></i>
+                        Calendar
+                    </a>
+                </li>
+                <li>
+                    <a href="tags.html" class="nav-link">
+                        <i class="fa-solid fa-tags nav-icon"></i>
+                        Tags
+                    </a>
+                </li>
+                <li>
+                    <a href="form.html" class="nav-link">
+                        <i class="fa-solid fa-comments nav-icon"></i>
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="table.html" class="nav-link active">
+                        <i class="fa-solid fa-chart-bar nav-icon"></i>
+                        Statistics
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        <header>
+            <div class="container">
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="stats-overview">
+                <h2>Task Statistics</h2>
+                <p>Gain valuable insights into your productivity with our comprehensive statistics dashboard. Track your progress, identify patterns, and make data-driven decisions to optimize your workflow.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Completion Rate</h3>
+                        <div class="stat-value">85%</div>
+                        <p>Tasks completed on time</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Time</h3>
+                        <div class="stat-value">2.5h</div>
+                        <p>Per task</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Productivity</h3>
+                        <div class="stat-value">+12%</div>
+                        <p>Compared to last month</p>
+                    </div>
+                </div>
+
+                <div class="stats-image">
+                    <img src="images/itd6.avif" alt="Data visualization and analytics dashboard" class="responsive-image">
+                </div>
+
+                <div class="stats-table">
+                    <h3>Detailed Statistics</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Total Tasks</th>
+                                <th>Completed</th>
+                                <th>In Progress</th>
+                                <th>Overdue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Work</td>
+                                <td>45</td>
+                                <td>38</td>
+                                <td>5</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Personal</td>
+                                <td>32</td>
+                                <td>28</td>
+                                <td>3</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Projects</td>
+                                <td>18</td>
+                                <td>15</td>
+                                <td>2</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="stats-insights">
+                <h3>Key Insights</h3>
+                <ul>
+                    <li><strong>Peak Productivity:</strong> Your most productive hours are between 9 AM and 12 PM.</li>
+                    <li><strong>Task Distribution:</strong> Work tasks account for 45% of your total tasks.</li>
+                    <li><strong>Completion Trends:</strong> Task completion rate has improved by 8% this month.</li>
+                    <li><strong>Priority Balance:</strong> Good distribution between high, medium, and low priority tasks.</li>
+                    <li><strong>Time Management:</strong> Average task completion time has decreased by 15 minutes.</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 Task Manager. All rights reserved.</p>
+                    <p>Contact us: <a href="mailto:contact@2DU.com">contact@2DU.com</a></p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.example.com" target="_blank">External Resources</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+    </script>
+</body>
+</html> 

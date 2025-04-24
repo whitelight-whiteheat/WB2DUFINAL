@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2DU - Manage your task tags and categories">
+    <title>2DU - Tags</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/tags.css">
+    <link rel="stylesheet" href="css/images.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <a href="project.html" class="logo-link">
+                <i class="fa-solid fa-list-check logo-img"></i>
+                <h1>2DU</h1>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li>
+                    <a href="project.html" class="nav-link">
+                        <i class="fa-solid fa-house nav-icon"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="tasks.html" class="nav-link">
+                        <i class="fa-solid fa-tasks nav-icon"></i>
+                        Tasks
+                    </a>
+                </li>
+                <li>
+                    <a href="calendar.html" class="nav-link">
+                        <i class="fa-solid fa-calendar nav-icon"></i>
+                        Calendar
+                    </a>
+                </li>
+                <li>
+                    <a href="tags.html" class="nav-link active">
+                        <i class="fa-solid fa-tags nav-icon"></i>
+                        Tags
+                    </a>
+                </li>
+                <li>
+                    <a href="form.html" class="nav-link">
+                        <i class="fa-solid fa-comments nav-icon"></i>
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="table.html" class="nav-link">
+                        <i class="fa-solid fa-chart-bar nav-icon"></i>
+                        Statistics
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        <header>
+            <div class="container">
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="tags-overview">
+                <h2>Tag Management</h2>
+                <p>Organize your tasks efficiently with our powerful tag system. Create custom tags, assign colors, and categorize your work for better visibility and organization. Our intuitive interface makes it easy to manage and apply tags across all your tasks.</p>
+
+                <div class="tag-form">
+                    <h3>Create New Tag</h3>
+                    <form id="tagForm">
+                        <div class="form-group">
+                            <label for="tagName">Tag Name</label>
+                            <input type="text" id="tagName" class="tag-input" placeholder="Enter a descriptive tag name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tagColor">Tag Color</label>
+                            <div class="color-picker-container">
+                                <input type="color" id="colorPicker" value="#e9ecef">
+                                <input type="text" id="tagColor" value="#e9ecef" readonly>
+                                <div id="tagColorPreview" class="color-preview"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tagDescription">Description (Optional)</label>
+                            <textarea id="tagDescription" class="tag-input" placeholder="Add a description for this tag"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Tag</button>
+                    </form>
+                </div>
+
+                <div class="tags-image">
+                    <img src="images/itd5.avif" alt="Colorful task organization and categorization interface" class="responsive-image">
+                </div>
+
+                <div class="tags-list">
+                    <h3>Your Tags</h3>
+                    <div id="tagsContainer" class="tags-container">
+                        <!-- Tags will be dynamically added here -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="tag-tips">
+                <h3>Tag Management Best Practices</h3>
+                <ul>
+                    <li><strong>Consistent Naming:</strong> Use clear, descriptive names for your tags to make them easily recognizable.</li>
+                    <li><strong>Color Coding:</strong> Assign meaningful colors to different types of tags for quick visual identification.</li>
+                    <li><strong>Hierarchical Organization:</strong> Create a logical hierarchy of tags to maintain a clear structure.</li>
+                    <li><strong>Regular Review:</strong> Periodically review and clean up unused or redundant tags.</li>
+                    <li><strong>Cross-Reference:</strong> Use tags to create relationships between different types of tasks.</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 2DU. All rights reserved.</p>
+                    <p>Contact us: <a href="mailto:contact@2DU.com">contact@2DU.com</a></p>
+                </div>
+                <div class="footer-links">
+                    <a href="#features-section">Learn about features</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/utils.js"></script>
+    <script src="js/tags.js"></script>
+</body>
+</html> 

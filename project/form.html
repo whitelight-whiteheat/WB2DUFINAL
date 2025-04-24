@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2DU - Contact us for support">
+    <title>2DU - Contact</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/images.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <a href="project.html" class="logo-link">
+                <i class="fa-solid fa-list-check logo-img"></i>
+                <h1>2DU</h1>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li>
+                    <a href="project.html" class="nav-link">
+                        <i class="fa-solid fa-house nav-icon"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="tasks.html" class="nav-link">
+                        <i class="fa-solid fa-tasks nav-icon"></i>
+                        Tasks
+                    </a>
+                </li>
+                <li>
+                    <a href="calendar.html" class="nav-link">
+                        <i class="fa-solid fa-calendar nav-icon"></i>
+                        Calendar
+                    </a>
+                </li>
+                <li>
+                    <a href="tags.html" class="nav-link">
+                        <i class="fa-solid fa-tags nav-icon"></i>
+                        Tags
+                    </a>
+                </li>
+                <li>
+                    <a href="form.html" class="nav-link active">
+                        <i class="fa-solid fa-comments nav-icon"></i>
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="table.html" class="nav-link">
+                        <i class="fa-solid fa-chart-bar nav-icon"></i>
+                        Statistics
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        <header>
+            <div class="container">
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="contact-form">
+                <h2>Contact Us</h2>
+                <p>We value your feedback and are here to help! Whether you have questions about features, need technical support, or want to share your experience with 2DU, our team is ready to assist you. Fill out the form below, and we'll get back to you as soon as possible. Your input helps us improve and create a better task management experience for everyone.</p>
+                
+                <div class="contact-image">
+                    <img src="images/itd2.avif" alt="2DU support and contact interface with communication channels" class="responsive-image">
+                </div>
+
+                <form action="process_form.php" method="post" class="form-container">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Subject</label>
+                        <select id="subject" name="subject" class="form-control" required>
+                            <option value="">Select a subject</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="support">Technical Support</option>
+                            <option value="feedback">Product Feedback</option>
+                            <option value="billing">Billing Question</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="bug">Report a Bug</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea id="message" name="message" class="form-control" rows="5" placeholder="Please provide details about your inquiry" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Preferred Contact Method</label>
+                        <div>
+                            <input type="radio" id="contact-email" name="contact-method" value="email" checked>
+                            <label for="contact-email">Email - Best for detailed responses and documentation</label>
+                            <input type="radio" id="contact-phone" name="contact-method" value="phone">
+                            <label for="contact-phone">Phone - Best for immediate assistance</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Stay Updated</label>
+                        <input type="checkbox" id="newsletter" name="newsletter" value="yes">
+                        <label for="newsletter">Yes, I want to receive updates about new features, tips, and productivity insights</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 Task Manager. All rights reserved.</p>
+                    <p>Contact us: <a href="mailto:contact@2DU.com">contact@2DU.com</a></p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.example.com" target="_blank">External Resources</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+    </script>
+</body>
+</html> 

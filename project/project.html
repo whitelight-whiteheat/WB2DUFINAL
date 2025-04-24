@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2DU - A comprehensive task management application to help you organize your work and personal life">
+    <title>2DU - Home</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <a href="project.html" class="logo-link">
+                <i class="fa-solid fa-list-check logo-img"></i>
+                <h1>2DU</h1>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li>
+                    <a href="project.html" class="nav-link active">
+                        <i class="fa-solid fa-house nav-icon"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="tasks.html" class="nav-link">
+                        <i class="fa-solid fa-tasks nav-icon"></i>
+                        Tasks
+                    </a>
+                </li>
+                <li>
+                    <a href="calendar.html" class="nav-link">
+                        <i class="fa-solid fa-calendar nav-icon"></i>
+                        Calendar
+                    </a>
+                </li>
+                <li>
+                    <a href="tags.html" class="nav-link">
+                        <i class="fa-solid fa-tags nav-icon"></i>
+                        Tags
+                    </a>
+                </li>
+                <li>
+                    <a href="form.html" class="nav-link">
+                        <i class="fa-solid fa-comments nav-icon"></i>
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="table.html" class="nav-link">
+                        <i class="fa-solid fa-chart-bar nav-icon"></i>
+                        Statistics
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        <header>
+            <div class="container">
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="hero">
+                <h2>Welcome to 2DU</h2>
+                <p>2DU is your intelligent task management companion, designed to streamline your workflow and enhance productivity. Whether you're managing personal projects, professional deadlines, or daily routines, our intuitive platform provides the perfect balance of simplicity and powerful features. Experience a new level of organization with smart task categorization, visual progress tracking, and seamless integration across all your devices.</p>
+                
+                <div class="hero-image">
+                    <img src="images/itd1.avif" alt="2DU interface showing task organization with color-coded categories and priority indicators" class="responsive-image">
+                </div>
+
+                <h3>Core Features</h3>
+                <ul>
+                    <li><strong>Smart Task Management:</strong> Create, organize, and track tasks with our intuitive interface. Set priorities, add detailed descriptions, and attach relevant tags for better organization.</li>
+                    <li><strong>Interactive Calendar:</strong> Visualize your schedule with our dynamic calendar view. Drag and drop tasks, set recurring events, and never miss an important deadline.</li>
+                    <li><strong>Custom Tag System:</strong> Create personalized tags to categorize tasks by project, priority, or context. Our color-coded system makes organization intuitive and visually appealing.</li>
+                    <li><strong>Progress Analytics:</strong> Track your productivity with detailed statistics and visual reports. Monitor completion rates, identify patterns, and optimize your workflow.</li>
+                    <li><strong>Cross-Platform Sync:</strong> Access your tasks anywhere, anytime. Our seamless synchronization ensures your data is always up-to-date across all your devices.</li>
+                </ul>
+               
+            </section>
+
+            <section class="features" id="features-section">
+                <h3>Why Choose 2DU?</h3>
+                <p>In today's fast-paced world, effective task management is crucial for success. 2DU stands out by offering a perfect blend of simplicity and functionality. Our platform is designed with user experience in mind, ensuring that both beginners and productivity experts can achieve their goals efficiently. With features like smart task categorization, visual progress tracking, and seamless device synchronization, 2DU adapts to your workflow rather than forcing you to adapt to it.</p>
+                
+                <div class="feature-image">
+                    <img src="images/itd2.avif" alt="2DU productivity dashboard with task completion metrics and progress tracking" class="responsive-image">
+                </div>
+
+                <h4>Getting Started</h4>
+                <ol>
+                    <li><strong>Create Your First Task:</strong> Use our simple form to add tasks with descriptions, due dates, and priority levels.</li>
+                    <li><strong>Organize with Tags:</strong> Create custom tags to categorize tasks by project, context, or priority level.</li>
+                    <li><strong>Plan Your Schedule:</strong> Use our calendar view to visualize your tasks and deadlines, making it easy to plan your week.</li>
+                    <li><strong>Track Progress:</strong> Monitor your productivity with our detailed statistics dashboard, identifying patterns and areas for improvement.</li>
+                    <li><strong>Stay Organized:</strong> Enjoy a clutter-free interface that helps you focus on what matters most, with smart features that adapt to your needs.</li>
+                </ol>
+            </section>
+
+            <section class="video-demo">
+                <h3>See 2DU in Action</h3>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/your-video-id" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <section class="quick-task">
+                <h3>Ready to Get Started?</h3>
+                <p>Take the first step towards better productivity. Add your first task and experience how 2DU can transform your workflow. Our intuitive interface makes it easy to get started, while powerful features help you stay organized and focused on your goals.</p>
+                <form class="quick-task-form" action="tasks.html" method="get">
+                    <input type="text" name="task" class="quick-task-input" placeholder="What's your first task?" required>
+                    <button type="submit" class="quick-task-btn">Add Task</button>
+                </form>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 2DU. All rights reserved.</p>
+                    <p>Contact us: <a href="mailto:contact@2DU.com">contact@2DU.com</a></p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.example.com" target="_blank">External Resources</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="scroll-indicator" aria-label="Scroll down"></div>
+
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+    </script>
+</body>
+</html> 

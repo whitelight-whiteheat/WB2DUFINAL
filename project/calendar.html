@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2DU - Calendar view for your tasks">
+    <title>2DU - Calendar</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/calendar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <a href="project.html" class="logo-link">
+                <i class="fa-solid fa-list-check logo-img"></i>
+                <h1>2DU</h1>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li>
+                    <a href="project.html" class="nav-link">
+                        <i class="fa-solid fa-house nav-icon"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="tasks.html" class="nav-link">
+                        <i class="fa-solid fa-tasks nav-icon"></i>
+                        Tasks
+                    </a>
+                </li>
+                <li>
+                    <a href="calendar.html" class="nav-link active">
+                        <i class="fa-solid fa-calendar nav-icon"></i>
+                        Calendar
+                    </a>
+                </li>
+                <li>
+                    <a href="tags.html" class="nav-link">
+                        <i class="fa-solid fa-tags nav-icon"></i>
+                        Tags
+                    </a>
+                </li>
+                <li>
+                    <a href="form.html" class="nav-link">
+                        <i class="fa-solid fa-comments nav-icon"></i>
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="table.html" class="nav-link">
+                        <i class="fa-solid fa-chart-bar nav-icon"></i>
+                        Statistics
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        <header>
+            <div class="container">
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="calendar-overview">
+                <h2>Calendar View</h2>
+                <p>Our calendar view provides a comprehensive overview of your schedule and deadlines. Visualize your tasks, meetings, and important events in a clear, intuitive format. The calendar integrates seamlessly with your task list, allowing you to drag and drop tasks to different dates, set recurring events, and maintain a balanced schedule. Color-coded events and priority indicators help you quickly identify important commitments and manage your time effectively.</p>
+
+                <div class="calendar-image">
+                    <img src="images/itd3.avif" alt="Digital calendar and scheduling interface" class="responsive-image">
+                </div>
+
+                <div class="calendar-controls">
+                    <button id="prevMonth">Previous</button>
+                    <h3 id="currentMonth">May 2025</h3>
+                    <button id="nextMonth">Next</button>
+                </div>
+
+                <div class="calendar-grid">
+                    <div class="calendar-header">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="calendar-body" id="calendarBody">
+                        <!-- Calendar days will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="calendar-legend">
+                    <h3>Priority Indicators</h3>
+                    <ul>
+                        <li><span class="legend-dot priority-high"></span> High Priority - Requires immediate attention</li>
+                        <li><span class="legend-dot priority-medium"></span> Medium Priority - Important but flexible</li>
+                        <li><span class="legend-dot priority-low"></span> Low Priority - Can be scheduled as time permits</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="upcoming-events">
+                <h3>Upcoming Events</h3>
+                <div class="event-list">
+                    <article class="event-item">
+                        <div class="event-date">
+                            <span class="event-day">15</span>
+                            <span class="event-month">May</span>
+                        </div>
+                        <div class="event-details">
+                            <h4>Project Deadline</h4>
+                            <p>Complete and submit project documentation for client review. Ensure all deliverables are properly formatted and include necessary supporting materials.</p>
+                            <span class="event-time">All Day</span>
+                        </div>
+                    </article>
+
+                    <article class="event-item">
+                        <div class="event-date">
+                            <span class="event-day">20</span>
+                            <span class="event-month">May</span>
+                        </div>
+                        <div class="event-details">
+                            <h4>Team Meeting</h4>
+                            <p>Weekly progress review and planning session. Prepare status updates for current projects and discuss upcoming initiatives.</p>
+                            <span class="event-time">10:00 AM - 11:30 AM</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="calendar-tips">
+                <h3>Calendar Management Best Practices</h3>
+                <div class="tips-image">
+                    <img src="images/itd4.avif" alt="Time management and productivity tools" class="responsive-image">
+                </div>
+                <ul>
+                    <li><strong>Regular Review:</strong> Set aside time each week to review and update your calendar. This helps prevent scheduling conflicts and ensures you're prepared for upcoming commitments.</li>
+                    <li><strong>Color Coding:</strong> Use our color-coding system to quickly identify different types of events and tasks. This visual organization makes it easier to scan your schedule.</li>
+                    <li><strong>Buffer Time:</strong> Include buffer time between meetings and tasks to account for overruns and provide breathing room in your schedule.</li>
+                    <li><strong>Recurring Events:</strong> Set up recurring events for regular meetings and tasks to save time and ensure consistency.</li>
+                    <li><strong>Priority Planning:</strong> Schedule high-priority tasks during your most productive hours to maximize efficiency.</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 Task Manager. All rights reserved.</p>
+                    <p>Contact us: <a href="mailto:contact@2DU.com">contact@2DU.com</a></p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.example.com" target="_blank">External Resources</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Calendar functionality
+        let currentDate = new Date();
+
+        function generateCalendar() {
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+            
+            const firstDay = new Date(currentYear, currentMonth, 1);
+            const lastDay = new Date(currentYear, currentMonth + 1, 0);
+            
+            const startingDay = firstDay.getDay();
+            const totalDays = lastDay.getDate();
+            
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                              'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            document.getElementById('currentMonth').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            
+            const calendarBody = document.getElementById('calendarBody');
+            calendarBody.innerHTML = '';
+            
+            // Previous month's days
+            const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
+            for (let i = startingDay - 1; i >= 0; i--) {
+                const day = document.createElement('div');
+                day.className = 'calendar-day faded';
+                day.textContent = prevMonthLastDay - i;
+                calendarBody.appendChild(day);
+            }
+            
+            // Current month's days
+            const today = new Date();
+            for (let i = 1; i <= totalDays; i++) {
+                const day = document.createElement('div');
+                day.className = 'calendar-day';
+                if (i === today.getDate() && 
+                    currentMonth === today.getMonth() && 
+                    currentYear === today.getFullYear()) {
+                    day.classList.add('today');
+                }
+                day.textContent = i;
+                calendarBody.appendChild(day);
+            }
+            
+            // Next month's days
+            const remainingDays = 42 - (startingDay + totalDays); // 42 is 6 rows * 7 days
+            for (let i = 1; i <= remainingDays; i++) {
+                const day = document.createElement('div');
+                day.className = 'calendar-day faded';
+                day.textContent = i;
+                calendarBody.appendChild(day);
+            }
+        }
+
+        // Initialize calendar
+        generateCalendar();
+
+        // Month navigation
+        document.getElementById('prevMonth').addEventListener('click', function() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            generateCalendar();
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', function() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            generateCalendar();
+        });
+    </script>
+</body>
+</html> 

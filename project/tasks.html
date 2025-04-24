@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2DU - Simple Task Management">
+    <title>2DU - Tasks</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/images.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <a href="project.html" class="logo-link">
+                <i class="fa-solid fa-list-check logo-img"></i>
+                <h1>2DU</h1>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li>
+                    <a href="project.html" class="nav-link">
+                        <i class="fa-solid fa-house nav-icon"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="tasks.html" class="nav-link active">
+                        <i class="fa-solid fa-tasks nav-icon"></i>
+                        Tasks
+                    </a>
+                </li>
+                <li>
+                    <a href="calendar.html" class="nav-link">
+                        <i class="fa-solid fa-calendar nav-icon"></i>
+                        Calendar
+                    </a>
+                </li>
+                <li>
+                    <a href="tags.html" class="nav-link">
+                        <i class="fa-solid fa-tags nav-icon"></i>
+                        Tags
+                    </a>
+                </li>
+                <li>
+                    <a href="form.html" class="nav-link">
+                        <i class="fa-solid fa-comments nav-icon"></i>
+                        Contact
+                    </a>
+                </li>
+                <li>
+                    <a href="table.html" class="nav-link">
+                        <i class="fa-solid fa-chart-bar nav-icon"></i>
+                        Statistics
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="main-content">
+        <header>
+            <div class="container">
+                <button class="menu-toggle" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </header>
+
+        <main class="container">
+            <section class="tasks-overview">
+                <h2>Task Management</h2>
+                <p>Welcome to your task management hub. Here, you can create, organize, and track all your tasks in one place. Our intuitive interface makes it easy to stay on top of your responsibilities, whether they're daily chores, work projects, or personal goals. With features like priority setting, due dates, and custom tags, you can organize your tasks in a way that works best for you.</p>
+                
+                <div class="tasks-image">
+                    <img src="images/itd1.avif" alt="2DU task management interface with organized task list and priority indicators" class="responsive-image">
+                </div>
+
+                <form id="taskForm" class="task-form">
+                    <input type="text" class="task-input" id="taskInput" placeholder="What do you need to accomplish?" required>
+                    <select class="task-tag-select" id="taskTag">
+                        <option value="">No Tag</option>
+                        <!-- Tags will be loaded here -->
+                    </select>
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                </form>
+
+                <div id="taskList" class="task-list">
+                    <!-- Tasks will be displayed here -->
+                </div>
+            </section>
+
+            <section class="quick-tips">
+                <h3>Task Management Tips</h3>
+                <ul>
+                    <li><strong>Prioritize Effectively:</strong> Use our priority system to focus on what matters most. High-priority tasks are highlighted for immediate attention.</li>
+                    <li><strong>Organize with Tags:</strong> Create custom tags to group related tasks. This makes it easier to find and manage similar items.</li>
+                    <li><strong>Set Realistic Deadlines:</strong> Assign due dates to keep yourself accountable and maintain a steady workflow.</li>
+                    <li><strong>Break Down Large Tasks:</strong> Divide complex projects into smaller, manageable tasks for better progress tracking.</li>
+                    <li><strong>Regular Review:</strong> Take time to review and update your task list regularly to ensure everything stays current and relevant.</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <div class="container footer-content">
+                <div class="footer-info">
+                    <p>&copy; 2025 2DU</p>
+                    <p>Contact us: <a href="mailto:contact@2DU.com">contact@2DU.com</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Task Management
+        const taskForm = document.getElementById('taskForm');
+        const taskList = document.getElementById('taskList');
+        const taskTag = document.getElementById('taskTag');
+
+        // Load tags into select
+        function loadTags() {
+            const tags = JSON.parse(localStorage.getItem('tags') || '[]');
+            const tagSelect = document.getElementById('taskTag');
+            
+            // Keep the "No Tag" option and add new tags
+            tagSelect.innerHTML = '<option value="">No Tag</option>';
+            
+            tags.forEach(tag => {
+                const option = document.createElement('option');
+                option.value = tag.name;
+                option.textContent = tag.name;
+                option.style.backgroundColor = tag.color;
+                tagSelect.appendChild(option);
+            });
+        }
+
+        // Load tasks
+        function loadTasks() {
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            const tags = JSON.parse(localStorage.getItem('tags') || '[]');
+            taskList.innerHTML = '';
+
+            tasks.forEach(task => {
+                const taskElement = document.createElement('div');
+                taskElement.className = 'task-item';
+                
+                const tag = tags.find(t => t.name === task.tag);
+                const tagHtml = tag ? 
+                    `<span class="task-tag" style="background-color: ${tag.color}">${tag.name}</span>` : '';
+
+                taskElement.innerHTML = `
+                    <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+                    <span class="task-text">${task.text}</span>
+                    ${tagHtml}
+                    <button class="task-delete" onclick="deleteTask('${task.id}')">&times;</button>
+                `;
+
+                const checkbox = taskElement.querySelector('.task-checkbox');
+                checkbox.addEventListener('change', () => toggleTask(task.id));
+
+                taskList.appendChild(taskElement);
+            });
+        }
+
+        // Add task
+        taskForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const taskText = document.getElementById('taskInput').value.trim();
+            const taskTagValue = document.getElementById('taskTag').value;
+
+            if (taskText) {
+                const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+                const newTask = {
+                    id: Date.now().toString(),
+                    text: taskText,
+                    tag: taskTagValue,
+                    completed: false
+                };
+
+                tasks.push(newTask);
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                
+                taskForm.reset();
+                loadTasks();
+            }
+        });
+
+        // Toggle task completion
+        function toggleTask(taskId) {
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                task.completed = !task.completed;
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                loadTasks();
+            }
+        }
+
+        // Delete task
+        function deleteTask(taskId) {
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            const updatedTasks = tasks.filter(task => task.id !== taskId);
+            localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+            loadTasks();
+        }
+
+        // Initialize
+        loadTags();
+        loadTasks();
+
+        // Listen for storage changes (in case tags are updated)
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'tags') {
+                loadTags();
+            }
+        });
+
+        // Helper function to map color values to predefined classes
+        function getColorClass(color) {
+            const colorMap = {
+                '#e9ecef': 'tag-color-default',
+                '#d1ecf1': 'tag-color-primary',
+                '#d4edda': 'tag-color-success',
+                '#fff3cd': 'tag-color-warning',
+                '#f8d7da': 'tag-color-danger',
+                '#cce5ff': 'tag-color-info',
+                '#e2e3e5': 'tag-color-secondary',
+                '#fefefe': 'tag-color-light',
+                '#d6d8d9': 'tag-color-dark'
+            };
+            return colorMap[color.toLowerCase()] || 'tag-color-default';
+        }
+
+        // Create tag element
+        function createTagElement(tag) {
+            const span = document.createElement('span');
+            span.className = 'tag-item';
+            
+            // Map color values to predefined classes
+            const colorClass = getColorClass(tag.color);
+            span.classList.add(colorClass);
+            
+            span.textContent = tag.name;
+            return span;
+        }
+    </script>
+</body>
+</html> 

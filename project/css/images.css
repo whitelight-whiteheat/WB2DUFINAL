@@ -1,0 +1,75 @@
+/* Image Styles */
+.responsive-image {
+    max-width: 250px;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    object-fit: contain;
+}
+
+.hero-image,
+.feature-image,
+.calendar-image,
+.tips-image,
+.tags-image,
+.stats-image,
+.tasks-image,
+.contact-image {
+    text-align: center;
+    margin: 1rem auto;
+    padding: 0 1rem;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.hero-image img,
+.feature-image img,
+.calendar-image img,
+.tips-image img,
+.tags-image img,
+.stats-image img,
+.tasks-image img,
+.contact-image img {
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Media Queries for Responsive Images */
+@media (max-width: 768px) {
+    .responsive-image {
+        max-width: 200px;
+    }
+    
+    .hero-image img,
+    .feature-image img,
+    .calendar-image img,
+    .tips-image img,
+    .tags-image img,
+    .stats-image img,
+    .tasks-image img,
+    .contact-image img {
+        max-width: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .responsive-image {
+        max-width: 180px;
+    }
+    
+    .hero-image img,
+    .feature-image img,
+    .calendar-image img,
+    .tips-image img,
+    .tags-image img,
+    .stats-image img,
+    .tasks-image img,
+    .contact-image img {
+        max-width: 180px;
+    }
+} 
