@@ -13,12 +13,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const tagCount = document.getElementById('tagCount');
     const tagColorPreview = document.getElementById('tagColorPreview');
 
+    // Helper function to map color values to predefined classes
+    function getColorClass(color) {
+        const colorMap = {
+            '#e9ecef': 'tag-color-default',
+            '#d1ecf1': 'tag-color-primary',
+            '#d4edda': 'tag-color-success',
+            '#fff3cd': 'tag-color-warning',
+            '#f8d7da': 'tag-color-danger',
+            '#cce5ff': 'tag-color-info',
+            '#e2e3e5': 'tag-color-secondary',
+            '#fefefe': 'tag-color-light',
+            '#d6d8d9': 'tag-color-dark'
+        };
+        return colorMap[color.toLowerCase()] || 'tag-color-default';
+    }
+
     // Initialize color picker
     if (colorPicker) {
         colorPicker.addEventListener('input', function() {
             const color = this.value;
             tagColorInput.value = color;
-            tagColorPreview.style.backgroundColor = color;
+            tagColorPreview.className = `tag-color-preview ${getColorClass(color)}`;
         });
     }
 
@@ -67,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Reset form
                 tagForm.reset();
-                tagColorPreview.style.backgroundColor = '#e9ecef';
+                tagColorPreview.className = 'tag-color-preview tag-color-default';
             }
         });
     }
