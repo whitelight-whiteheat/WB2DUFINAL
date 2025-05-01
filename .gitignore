@@ -13,16 +13,22 @@ Thumbs.db
 *.swp
 *.swo
 
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
 # Dependencies
 node_modules/
-bower_components/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
 
 # Build files
 dist/
-build/ 
+build/
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Project specific
+*.pdf
+*.zip
+Validation/ 

@@ -97,3 +97,115 @@ document.addEventListener('DOMContentLoaded', function() {
         loadTasks();
     }
 }); 
+
+const modal = document.getElementById('editTaskModal');
+const closeModal = document.querySelector('.close-modal');
+const editTaskForm = document.getElementById('editTaskForm');
+
+// Modify the task structure in your add task function
+taskForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const taskText = document.getElementById('taskInput').value.trim();
+    const taskTagValue = document.getElementById('taskTag').value;
+
+    if (taskText) {
+        const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        const newTask = {
+            id: Date.now().toString(),
+            text: taskText,
+            tag: taskTagValue,
+            completed: false,
+            dueDate: null // Add this new field
+        };
+
+        tasks.push(newTask);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        
+        taskForm.reset();
+        loadTasks();
+    }
+});
+
+// Add edit task function
+window.editTask = function(taskId) {
+    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    const task = tasks.find(t => t.id === taskId);
+    
+    if (task) {
+        document.getElementById('editTaskId').value = task.id;
+        document.getElementById('editTaskText').value = task.text;
+        document.getElementById('editTaskTag').value = task.tag || '';
+        document.getElementById('editTaskDueDate').value = task.dueDate || '';
+        
+        // Show modal
+        modal.style.display = 'block';
+    }
+};
+
+// Close modal when clicking the close button or outside the modal
+closeModal.onclick = function() {
+    modal.style.display = 'none';
+};
+
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+};
+
+// Handle edit form submission
+editTaskForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const taskId = document.getElementById('editTaskId').value;
+    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    const taskIndex = tasks.findIndex(t => t.id === taskId);
+    
+    if (taskIndex !== -1) {
+        tasks[taskIndex] = {
+            ...tasks[taskIndex],
+            text: document.getElementById('editTaskText').value,
+            tag: document.getElementById('editTaskTag').value,
+            dueDate: document.getElementById('editTaskDueDate').value
+        };
+        
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        loadTasks();
+        modal.style.display = 'none';
+    }
+});
+
+// Modify loadTasks function to display due dates
+function loadTasks() {
+    const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    const tags = JSON.parse(localStorage.getItem('tags') || '[]');
+    taskList.innerHTML = '';
+
+    tasks.forEach(task => {
+        const taskElement = document.createElement('div');
+        taskElement.className = 'task-item';
+        
+        const tag = tags.find(t => t.name === task.tag);
+        const tagHtml = tag ? 
+            `<span class="task-tag ${getColorClass(tag.color)}">${tag.name}</span>` : '';
+        
+        const dueDateHtml = task.dueDate ? 
+            `<span class="task-due-date">${new Date(task.dueDate).toLocaleDateString()}</span>` : '';
+
+        taskElement.innerHTML = `
+            <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+            <span class="task-text">${task.text}</span>
+            ${tagHtml}
+            ${dueDateHtml}
+            <button class="task-edit" onclick="window.editTask('${task.id}')">
+                <i class="fa-solid fa-edit"></i>
+            </button>
+            <button class="task-delete" onclick="window.deleteTask('${task.id}')">&times;</button>
+        `;
+
+        const checkbox = taskElement.querySelector('.task-checkbox');
+        checkbox.addEventListener('change', () => window.toggleTask(task.id));
+
+        taskList.appendChild(taskElement);
+    });
+}

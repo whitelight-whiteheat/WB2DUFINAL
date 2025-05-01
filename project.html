@@ -6,6 +6,7 @@
     <meta name="description" content="2DU - A comprehensive task management application to help you organize your work and personal life">
     <title>2DU - Home</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/images.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
@@ -13,7 +14,6 @@
     <aside class="sidebar">
         <div class="logo">
             <a href="project.html" class="logo-link">
-                <i class="fa-solid fa-list-check logo-img"></i>
                 <h1>2DU</h1>
             </a>
         </div>
@@ -93,10 +93,6 @@
             <section class="features" id="features-section">
                 <h3>Why Choose 2DU?</h3>
                 <p>In today's fast-paced world, effective task management is crucial for success. 2DU stands out by offering a perfect blend of simplicity and functionality. Our platform is designed with user experience in mind, ensuring that both beginners and productivity experts can achieve their goals efficiently. With features like smart task categorization, visual progress tracking, and seamless device synchronization, 2DU adapts to your workflow rather than forcing you to adapt to it.</p>
-                
-                <div class="feature-image">
-                    <img src="images/itd2.avif" alt="2DU productivity dashboard with task completion metrics and progress tracking" class="responsive-image">
-                </div>
 
                 <h4>Getting Started</h4>
                 <ol>
@@ -125,8 +121,8 @@
             <section class="quick-task">
                 <h3>Ready to Get Started?</h3>
                 <p>Take the first step towards better productivity. Add your first task and experience how 2DU can transform your workflow. Our intuitive interface makes it easy to get started, while powerful features help you stay organized and focused on your goals.</p>
-                <form class="quick-task-form" action="tasks.html" method="get">
-                    <input type="text" name="task" class="quick-task-input" placeholder="What's your first task?" required>
+                <form class="quick-task-form" id="quickTaskForm">
+                    <input type="text" name="task" class="quick-task-input" id="quickTaskInput" placeholder="What's your first task?" required>
                     <button type="submit" class="quick-task-btn">Add Task</button>
                 </form>
             </section>
@@ -154,6 +150,41 @@
     <script>
         document.querySelector('.menu-toggle').addEventListener('click', function() {
             document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Quick Task Form functionality
+        const quickTaskForm = document.getElementById('quickTaskForm');
+        
+        quickTaskForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const taskText = document.getElementById('quickTaskInput').value.trim();
+            
+            if (taskText) {
+                // Get existing tasks or initialize empty array
+                const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+                
+                // Create new task object
+                const newTask = {
+                    id: Date.now().toString(),
+                    text: taskText,
+                    priority: 'medium', // Default priority
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+                
+                // Add new task to array
+                tasks.push(newTask);
+                
+                // Save to localStorage
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                
+                // Reset form
+                quickTaskForm.reset();
+                
+                // Redirect to tasks page
+                window.location.href = 'tasks.html';
+            }
         });
     </script>
 </body>

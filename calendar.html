@@ -6,7 +6,7 @@
     <meta name="description" content="2DU - Calendar view for your tasks">
     <title>2DU - Calendar</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/images.css">
     <link rel="stylesheet" href="css/calendar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -15,7 +15,6 @@
     <aside class="sidebar">
         <div class="logo">
             <a href="project.html" class="logo-link">
-                <i class="fa-solid fa-list-check logo-img"></i>
                 <h1>2DU</h1>
             </a>
         </div>
@@ -178,6 +177,15 @@
         // Calendar functionality
         let currentDate = new Date();
 
+        function getColorClass(color) {
+            // Handle undefined or null color
+            if (!color) {
+                return 'default-tag';
+            }
+            // Convert color to a valid CSS class name
+            return color.toLowerCase().replace(/\s+/g, '-');
+        }
+
         function generateCalendar() {
             const currentMonth = currentDate.getMonth();
             const currentYear = currentDate.getFullYear();
@@ -201,7 +209,7 @@
             for (let i = startingDay - 1; i >= 0; i--) {
                 const day = document.createElement('div');
                 day.className = 'calendar-day faded';
-                day.textContent = prevMonthLastDay - i;
+                day.innerHTML = `<div class="day-number">${prevMonthLastDay - i}</div>`;
                 calendarBody.appendChild(day);
             }
             
@@ -215,22 +223,115 @@
                     currentYear === today.getFullYear()) {
                     day.classList.add('today');
                 }
-                day.textContent = i;
+                day.innerHTML = `<div class="day-number">${i}</div>`;
+
+                // Add tasks to the day
+                const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+                const currentDate = new Date(currentYear, currentMonth, i);
+                const dayTasks = tasks.filter(task => {
+                    if (!task.dueDate) {
+                        // If no due date, show on today
+                        return currentDate.toDateString() === today.toDateString();
+                    }
+                    const taskDate = new Date(task.dueDate);
+                    return taskDate.toDateString() === currentDate.toDateString();
+                });
+
+                if (dayTasks.length > 0) {
+                    const taskList = document.createElement('div');
+                    taskList.className = 'day-tasks';
+                    
+                    // Sort tasks by priority (high first)
+                    const sortedTasks = dayTasks.sort((a, b) => {
+                        const priorityOrder = { high: 0, medium: 1, low: 2 };
+                        return priorityOrder[a.priority] - priorityOrder[b.priority];
+                    });
+
+                    // Limit to 3 tasks per day to prevent overflow
+                    const displayTasks = sortedTasks.slice(0, 3);
+                    
+                    displayTasks.forEach(task => {
+                        const taskElement = document.createElement('div');
+                        taskElement.className = `calendar-task ${task.priority}`;
+                        taskElement.innerHTML = `
+                            <span class="task-text">${task.text}</span>
+                            ${task.tag ? `<span class="task-tag ${getColorClass(task.tag.color)}">${task.tag}</span>` : ''}
+                        `;
+                        taskList.appendChild(taskElement);
+                    });
+
+                    // Add indicator if there are more tasks
+                    if (dayTasks.length > 3) {
+                        const moreTasks = document.createElement('div');
+                        moreTasks.className = 'more-tasks';
+                        moreTasks.textContent = `+${dayTasks.length - 3} more`;
+                        taskList.appendChild(moreTasks);
+                    }
+
+                    day.appendChild(taskList);
+                }
+
                 calendarBody.appendChild(day);
             }
             
-            // Next month's days
-            const remainingDays = 42 - (startingDay + totalDays); // 42 is 6 rows * 7 days
-            for (let i = 1; i <= remainingDays; i++) {
+            // Next month's days to fill the grid
+            const totalCells = 42; // 6 rows × 7 columns
+            const remainingCells = totalCells - (startingDay + totalDays);
+            for (let i = 1; i <= remainingCells; i++) {
                 const day = document.createElement('div');
                 day.className = 'calendar-day faded';
-                day.textContent = i;
+                day.innerHTML = `<div class="day-number">${i}</div>`;
                 calendarBody.appendChild(day);
             }
         }
 
-        // Initialize calendar
+        // Update upcoming events section with actual tasks
+        function updateUpcomingEvents() {
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            const eventList = document.querySelector('.event-list');
+            eventList.innerHTML = '';
+
+            // Sort tasks by due date
+            const sortedTasks = tasks
+                .filter(task => !task.completed)
+                .sort((a, b) => {
+                    const dateA = a.dueDate ? new Date(a.dueDate) : new Date();
+                    const dateB = b.dueDate ? new Date(b.dueDate) : new Date();
+                    return dateA - dateB;
+                });
+
+            sortedTasks.slice(0, 5).forEach(task => {
+                const dueDate = task.dueDate ? new Date(task.dueDate) : new Date();
+                const eventItem = document.createElement('article');
+                eventItem.className = 'event-item';
+                
+                eventItem.innerHTML = `
+                    <div class="event-date">
+                        <span class="event-day">${dueDate.getDate()}</span>
+                        <span class="event-month">${dueDate.toLocaleString('default', { month: 'short' })}</span>
+                    </div>
+                    <div class="event-details">
+                        <h4>${task.text}</h4>
+                        <p>${task.tag ? `Tag: ${task.tag}` : 'No tag'}</p>
+                        <span class="event-time ${task.priority}">${task.priority} Priority</span>
+                    </div>
+                `;
+
+                eventList.appendChild(eventItem);
+            });
+        }
+
+        // Initialize calendar and events
         generateCalendar();
+        updateUpcomingEvents();
+
+        // Update when tasks change
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'tasks') {
+                generateCalendar();
+                updateUpcomingEvents();
+            }
+        });
 
         // Month navigation
         document.getElementById('prevMonth').addEventListener('click', function() {

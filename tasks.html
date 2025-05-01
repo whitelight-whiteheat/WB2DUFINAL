@@ -6,16 +6,123 @@
     <meta name="description" content="2DU - Simple Task Management">
     <title>2DU - Tasks</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/images.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .close:hover {
+            color: #ff4444;
+            transform: scale(1.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            transition: transform 0.2s ease;
+        }
+
+        .form-group:hover {
+            transform: translateX(5px);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            transition: color 0.2s ease;
+        }
+
+        .form-group:hover label {
+            color: #007bff;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .task-edit {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .task-edit:hover {
+            color: #007bff;
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body>
     <aside class="sidebar">
         <div class="logo">
             <a href="project.html" class="logo-link">
-                <i class="fa-solid fa-list-check logo-img"></i>
                 <h1>2DU</h1>
             </a>
         </div>
@@ -77,16 +184,30 @@
                 <h2>Task Management</h2>
                 <p>Welcome to your task management hub. Here, you can create, organize, and track all your tasks in one place. Our intuitive interface makes it easy to stay on top of your responsibilities, whether they're daily chores, work projects, or personal goals. With features like priority setting, due dates, and custom tags, you can organize your tasks in a way that works best for you.</p>
                 
-                <div class="tasks-image">
-                    <img src="images/itd1.avif" alt="2DU task management interface with organized task list and priority indicators" class="responsive-image">
+                <div class="feature-image">
+                    <img src="images/itd2.avif" alt="2DU productivity dashboard with task completion metrics and progress tracking" class="responsive-image">
                 </div>
 
                 <form id="taskForm" class="task-form">
                     <input type="text" class="task-input" id="taskInput" placeholder="What do you need to accomplish?" required>
-                    <select class="task-tag-select" id="taskTag">
-                        <option value="">No Tag</option>
-                        <!-- Tags will be loaded here -->
+                    <div class="tag-select-container">
+                        <select class="task-tag-select" id="taskTag">
+                            <option value="">No Tag</option>
+                            <!-- Tags will be loaded here -->
+                        </select>
+                        <button type="button" class="btn btn-secondary" id="newTagBtn">
+                            <i class="fa-solid fa-plus"></i> New Tag
+                        </button>
+                    </div>
+                    <select class="task-priority-select" id="taskPriority" required>
+                        <option value="low">Low Priority</option>
+                        <option value="medium" selected>Medium Priority</option>
+                        <option value="high">High Priority</option>
                     </select>
+                    <div class="date-picker-container">
+                        <input type="datetime-local" id="taskDueDate" class="task-due-date">
+                        <i class="fa-regular fa-calendar"></i>
+                    </div>
                     <button type="submit" class="btn btn-primary">Add Task</button>
                 </form>
 
@@ -115,6 +236,68 @@
                 </div>
             </div>
         </footer>
+    </div>
+
+    <div id="editTaskModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Edit Task</h3>
+            <form id="editTaskForm">
+                <div class="form-group">
+                    <label for="editTaskInput">Task Description</label>
+                    <input type="text" id="editTaskInput" required>
+                </div>
+                <div class="form-group">
+                    <label for="editTaskTag">Task Tag</label>
+                    <select id="editTaskTag">
+                        <option value="">No Tag</option>
+                        <!-- Tags will be loaded here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editTaskPriority">Task Priority</label>
+                    <select id="editTaskPriority">
+                        <option value="low">Low Priority</option>
+                        <option value="medium">Medium Priority</option>
+                        <option value="high">High Priority</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editTaskDueDate">Due Date</label>
+                    <input type="datetime-local" id="editTaskDueDate">
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- New Tag Modal -->
+    <div id="newTagModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Create New Tag</h3>
+            <form id="newTagForm">
+                <div class="form-group">
+                    <label for="newTagName">Tag Name</label>
+                    <input type="text" id="newTagName" required>
+                </div>
+                <div class="form-group">
+                    <label for="newTagColor">Tag Color</label>
+                    <select id="newTagColor" required>
+                        <option value="#e9ecef">Default</option>
+                        <option value="#d1ecf1">Primary</option>
+                        <option value="#d4edda">Success</option>
+                        <option value="#fff3cd">Warning</option>
+                        <option value="#f8d7da">Danger</option>
+                        <option value="#cce5ff">Info</option>
+                        <option value="#e2e3e5">Secondary</option>
+                        <option value="#fefefe">Light</option>
+                        <option value="#d6d8d9">Dark</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Tag</button>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -156,7 +339,49 @@
                 option.value = tag.name;
                 option.textContent = tag.name;
                 option.className = getColorClass(tag.color);
+                option.style.backgroundColor = tag.color;
                 tagSelect.appendChild(option);
+            });
+        }
+
+        // Drag and Drop functionality
+        function initializeDragAndDrop() {
+            const taskList = document.getElementById('taskList');
+            let draggedItem = null;
+
+            taskList.addEventListener('dragstart', (e) => {
+                if (e.target.classList.contains('task-item')) {
+                    draggedItem = e.target;
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/plain', draggedItem.dataset.taskId);
+                }
+            });
+
+            taskList.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            });
+
+            taskList.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (!draggedItem) return;
+
+                const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+                const draggedTaskId = draggedItem.dataset.taskId;
+                const droppedIndex = Array.from(taskList.children).indexOf(e.target.closest('.task-item'));
+                
+                if (droppedIndex === -1) return;
+
+                const draggedIndex = tasks.findIndex(task => task.id === draggedTaskId);
+                const [draggedTask] = tasks.splice(draggedIndex, 1);
+                tasks.splice(droppedIndex, 0, draggedTask);
+                
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                loadTasks();
+            });
+
+            taskList.addEventListener('dragend', () => {
+                draggedItem = null;
             });
         }
 
@@ -169,16 +394,34 @@
             tasks.forEach(task => {
                 const taskElement = document.createElement('div');
                 taskElement.className = 'task-item';
+                taskElement.draggable = true;
+                taskElement.dataset.taskId = task.id;
                 
                 const tag = tags.find(t => t.name === task.tag);
                 const tagHtml = tag ? 
                     `<span class="task-tag ${getColorClass(tag.color)}">${tag.name}</span>` : '';
 
                 taskElement.innerHTML = `
-                    <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
-                    <span class="task-text">${task.text}</span>
-                    ${tagHtml}
-                    <button class="task-delete" onclick="window.deleteTask('${task.id}')">&times;</button>
+                    <div class="task-item" draggable="true" data-task-id="${task.id}">
+                        <div class="task-handle">
+                            <i class="fa-solid fa-grip-vertical"></i>
+                        </div>
+                        <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+                        <div class="task-content">
+                            <span class="task-text ${task.priority}">${task.text}</span>
+                            <div class="task-meta">
+                                ${tagHtml}
+                                <span class="task-priority ${task.priority}">${task.priority}</span>
+                                ${task.dueDate ? `<span class="task-due-date ${isOverdue(task.dueDate) ? 'overdue' : ''}">
+                                    <i class="fa-regular fa-calendar"></i> ${formatDate(task.dueDate)}
+                                </span>` : ''}
+                            </div>
+                        </div>
+                        <button class="task-edit" onclick="window.editTask('${task.id}')">
+                            <i class="fa-solid fa-edit"></i>
+                        </button>
+                        <button class="task-delete" onclick="window.deleteTask('${task.id}')">&times;</button>
+                    </div>
                 `;
 
                 const checkbox = taskElement.querySelector('.task-checkbox');
@@ -186,13 +429,31 @@
 
                 taskList.appendChild(taskElement);
             });
+
+            initializeDragAndDrop();
         }
 
-        // Add task
+        // Helper functions for date handling
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function isOverdue(dateString) {
+            return new Date(dateString) < new Date();
+        }
+
+        // Update task creation
         taskForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const taskText = document.getElementById('taskInput').value.trim();
             const taskTagValue = document.getElementById('taskTag').value;
+            const taskDueDate = document.getElementById('taskDueDate').value;
 
             if (taskText) {
                 const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
@@ -200,6 +461,8 @@
                     id: Date.now().toString(),
                     text: taskText,
                     tag: taskTagValue,
+                    priority: document.getElementById('taskPriority').value,
+                    dueDate: taskDueDate || null,
                     completed: false
                 };
 
@@ -253,6 +516,105 @@
             span.textContent = tag.name;
             return span;
         }
+
+        // Update edit modal
+        window.editTask = function(taskId) {
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                document.getElementById('editTaskInput').value = task.text;
+                document.getElementById('editTaskTag').value = task.tag || '';
+                document.getElementById('editTaskPriority').value = task.priority;
+                document.getElementById('editTaskDueDate').value = task.dueDate || '';
+                document.getElementById('editTaskModal').style.display = 'block';
+                document.getElementById('editTaskForm').dataset.taskId = taskId;
+            }
+        };
+
+        // Update edit form submission
+        document.getElementById('editTaskForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const taskId = this.dataset.taskId;
+            const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            const taskIndex = tasks.findIndex(t => t.id === taskId);
+            
+            if (taskIndex !== -1) {
+                tasks[taskIndex] = {
+                    ...tasks[taskIndex],
+                    text: document.getElementById('editTaskInput').value,
+                    tag: document.getElementById('editTaskTag').value,
+                    priority: document.getElementById('editTaskPriority').value,
+                    dueDate: document.getElementById('editTaskDueDate').value || null
+                };
+                
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                loadTasks();
+                document.getElementById('editTaskModal').style.display = 'none';
+            }
+        });
+
+        // Close modal when clicking the close button
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('editTaskModal').style.display = 'none';
+        };
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('editTaskModal')) {
+                document.getElementById('editTaskModal').style.display = 'none';
+            }
+        };
+
+        // New Tag Modal functionality
+        const newTagBtn = document.getElementById('newTagBtn');
+        const newTagModal = document.getElementById('newTagModal');
+        const newTagForm = document.getElementById('newTagForm');
+        const closeNewTagModal = document.querySelector('#newTagModal .close');
+
+        newTagBtn.addEventListener('click', () => {
+            newTagModal.style.display = 'block';
+        });
+
+        closeNewTagModal.onclick = function() {
+            newTagModal.style.display = 'none';
+        };
+
+        window.onclick = function(event) {
+            if (event.target === newTagModal) {
+                newTagModal.style.display = 'none';
+            }
+        };
+
+        newTagForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const tagName = document.getElementById('newTagName').value.trim();
+            const tagColor = document.getElementById('newTagColor').value;
+
+            if (tagName) {
+                const tags = JSON.parse(localStorage.getItem('tags') || '[]');
+                
+                // Check if tag name already exists
+                if (tags.some(tag => tag.name.toLowerCase() === tagName.toLowerCase())) {
+                    alert('A tag with this name already exists!');
+                    return;
+                }
+
+                const newTag = {
+                    name: tagName,
+                    color: tagColor
+                };
+
+                tags.push(newTag);
+                localStorage.setItem('tags', JSON.stringify(tags));
+                
+                // Update the tag select in both modals
+                loadTags();
+                
+                // Close the modal and reset the form
+                newTagModal.style.display = 'none';
+                newTagForm.reset();
+            }
+        });
     </script>
 </body>
 </html> 

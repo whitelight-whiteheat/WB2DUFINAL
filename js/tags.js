@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Tag management
     const tagForm = document.getElementById('tagForm');
-    const tagList = document.getElementById('tagList');
+    const tagList = document.getElementById('tagsContainer');
     const colorPicker = document.getElementById('colorPicker');
     const tagNameInput = document.getElementById('tagName');
     const tagColorInput = document.getElementById('tagColor');
@@ -43,7 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update tag count
     function updateTagCount() {
-        tagCount.textContent = tags.length;
+        if (tagCount) {
+            tagCount.textContent = tags.length;
+        }
     }
 
     // Save tags to localStorage
@@ -52,13 +54,72 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTagCount();
     }
 
+    // Create tag element
+    function createTagElement(tag, index) {
+        const tagElement = document.createElement('div');
+        tagElement.className = 'tag-item';
+        tagElement.innerHTML = `
+            <div class="tag-header">
+                <span class="tag-color ${getColorClass(tag.color)}"></span>
+                <span class="tag-name">${tag.name}</span>
+                <button class="tag-delete" data-index="${index}">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            ${tag.description ? `<p class="tag-description">${tag.description}</p>` : ''}
+            <div class="tag-actions">
+                <button class="btn btn-edit" data-index="${index}">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-delete" data-index="${index}">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        `;
+
+        // Add event listeners for buttons
+        const deleteBtn = tagElement.querySelector('.tag-delete');
+        const editBtn = tagElement.querySelector('.btn-edit');
+        const deleteConfirmBtn = tagElement.querySelector('.btn-delete');
+
+        deleteBtn.addEventListener('click', () => {
+            tags.splice(index, 1);
+            saveTags();
+            renderTags();
+        });
+
+        editBtn.addEventListener('click', () => {
+            tagNameInput.value = tag.name;
+            tagColorInput.value = tag.color;
+            tagDescriptionInput.value = tag.description || '';
+            colorPicker.value = tag.color;
+            tagColorPreview.className = `tag-color-preview ${getColorClass(tag.color)}`;
+            
+            tags.splice(index, 1);
+            saveTags();
+            renderTags();
+        });
+
+        deleteConfirmBtn.addEventListener('click', () => {
+            if (confirm('Are you sure you want to delete this tag?')) {
+                tags.splice(index, 1);
+                saveTags();
+                renderTags();
+            }
+        });
+
+        return tagElement;
+    }
+
     // Render tags
     function renderTags() {
-        tagList.innerHTML = '';
-        tags.forEach((tag, index) => {
-            const tagElement = createTagElement(tag);
-            tagList.appendChild(tagElement);
-        });
+        if (tagList) {
+            tagList.innerHTML = '';
+            tags.forEach((tag, index) => {
+                const tagElement = createTagElement(tag, index);
+                tagList.appendChild(tagElement);
+            });
+        }
     }
 
     // Add new tag

@@ -1,0 +1,307 @@
+/* Calendar Grid Layout */
+.calendar-grid {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+    padding: 12px 0;
+}
+
+.calendar-header div {
+    text-align: center;
+    font-weight: 500;
+    color: #64748b;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: 120px;
+    gap: 1px;
+    background: #e2e8f0;
+}
+
+.calendar-day {
+    background: white;
+    padding: 8px;
+    height: 120px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.calendar-day.faded {
+    background: #f8fafc;
+    color: #94a3b8;
+}
+
+.calendar-day.today {
+    background: #f0f9ff;
+    border: 2px solid var(--primary-color);
+}
+
+.calendar-day .day-number {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1e293b;
+    margin-bottom: 4px;
+    flex-shrink: 0;
+}
+
+/* Task Display in Calendar */
+.day-tasks {
+    flex: 1;
+    overflow-y: auto;
+    max-height: calc(100% - 20px);
+    padding-right: 4px;
+    min-height: 0;
+}
+
+.day-tasks::-webkit-scrollbar {
+    width: 4px;
+}
+
+.day-tasks::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 2px;
+}
+
+.calendar-task {
+    background: white;
+    border-left: 3px solid;
+    padding: 4px 6px;
+    margin-bottom: 2px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.calendar-task.high {
+    border-left-color: #dc3545;
+    background: rgba(220, 53, 69, 0.05);
+}
+
+.calendar-task.medium {
+    border-left-color: #ffc107;
+    background: rgba(255, 193, 7, 0.05);
+}
+
+.calendar-task.low {
+    border-left-color: #28a745;
+    background: rgba(40, 167, 69, 0.05);
+}
+
+.task-text {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #1e293b;
+    line-height: 1.2;
+}
+
+.task-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    padding: 1px 4px;
+    border-radius: 10px;
+    margin-top: 1px;
+    background: #f1f5f9;
+    color: #64748b;
+    line-height: 1.2;
+}
+
+.task-tag.default-tag {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.more-tasks {
+    font-size: 0.7rem;
+    color: #64748b;
+    text-align: center;
+    padding: 2px 0;
+    margin-top: 2px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.more-tasks:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+/* Calendar Controls */
+.calendar-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 24px 0;
+    padding: 0 16px;
+}
+
+.calendar-controls button {
+    background: white;
+    border: 2px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-controls button:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.calendar-controls h3 {
+    font-size: 1.2rem;
+    color: #1e293b;
+    margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .calendar-body {
+        grid-auto-rows: 100px;
+    }
+
+    .calendar-day {
+        height: 100px;
+        padding: 6px;
+    }
+
+    .calendar-task {
+        font-size: 0.75rem;
+        padding: 3px 4px;
+        margin-bottom: 1px;
+    }
+
+    .task-tag {
+        font-size: 0.65rem;
+        padding: 1px 3px;
+    }
+
+    .calendar-controls {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+
+/* Upcoming Events Section */
+.event-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 16px;
+    transition: transform 0.2s ease;
+}
+
+.event-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    padding: 8px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.event-day {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.event-month {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+}
+
+.event-details {
+    flex: 1;
+}
+
+.event-details h4 {
+    margin: 0 0 8px 0;
+    color: var(--text-color);
+}
+
+.event-details p {
+    margin: 0 0 8px 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.event-time {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.event-time.high {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.event-time.medium {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+
+.event-time.low {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .event-item {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .event-date {
+        flex-direction: row;
+        gap: 8px;
+        min-width: auto;
+    }
+
+    .event-day {
+        font-size: 1.2rem;
+    }
+} 
