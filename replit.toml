@@ -1,0 +1,33 @@
+entrypoint="index.html"
+hidden=[".config"]
+
+[deployment]
+deploymentTarget = "static"
+
+[languages.html]
+pattern = "**/*.html"
+syntax = "html"
+
+[languages.css]
+pattern = "**/*.css"
+syntax = "css"
+
+[languages.javascript]
+pattern = "**/*.js"
+syntax = "javascript"
+
+[workflows]
+runButton = "Run"
+
+[[workflows.workflow]]
+name = "Run"
+author = 41161414
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python server.py"
+
+[[ports]]
+localPort = 5000
+externalPort = 80 

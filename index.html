@@ -115,8 +115,9 @@
                 <h3>Ready to Get Started?</h3>
                 <p>Take the first step towards better productivity. Add your first task and experience how 2DU can transform your workflow. Our intuitive interface makes it easy to get started, while powerful features help you stay organized and focused on your goals.</p>
                 <form class="quick-task-form" id="quickTaskForm">
-                    <input type="text" name="task" class="quick-task-input" id="quickTaskInput" placeholder="What's your first task?" required>
-                    <button type="submit" class="quick-task-btn">Add Task</button>
+                    <label for="quickTaskInput" class="visually-hidden">New Task</label>
+                    <input type="text" name="task" class="quick-task-input" id="quickTaskInput" placeholder="What's your first task?" required aria-label="New task input">
+                    <button type="submit" class="quick-task-btn" aria-label="Add new task">Add Task</button>
                 </form>
             </section>
         </main>

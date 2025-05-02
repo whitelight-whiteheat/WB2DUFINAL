@@ -1,3 +1,62 @@
+// Viewport initialization and error handling
+class Viewport {
+    constructor() {
+        this.dimensions = {
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+        this.scrollArea = null;
+        this.initialize();
+    }
+
+    initialize() {
+        try {
+            this.scrollArea = document.querySelector('.main-content');
+            if (!this.scrollArea) {
+                console.warn('Scroll area element not found');
+                return;
+            }
+            this.updateDimensions();
+            window.addEventListener('resize', () => this.updateDimensions());
+        } catch (error) {
+            console.error('Error initializing Viewport:', error);
+        }
+    }
+
+    updateDimensions() {
+        try {
+            if (this.scrollArea) {
+                this.dimensions = {
+                    width: this.scrollArea.offsetWidth,
+                    height: this.scrollArea.offsetHeight
+                };
+            }
+        } catch (error) {
+            console.error('Error updating Viewport dimensions:', error);
+        }
+    }
+
+    syncScrollArea() {
+        try {
+            if (!this.scrollArea || !this.dimensions) {
+                console.warn('Viewport not properly initialized');
+                return;
+            }
+            // Add your scroll synchronization logic here
+        } catch (error) {
+            console.error('Error in syncScrollArea:', error);
+        }
+    }
+}
+
+// Initialize Viewport
+let viewport;
+try {
+    viewport = new Viewport();
+} catch (error) {
+    console.error('Failed to initialize Viewport:', error);
+}
+
 // Task Management Functionality
 document.addEventListener('DOMContentLoaded', function() {
     // Get the form and task list elements
